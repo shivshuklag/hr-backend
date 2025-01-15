@@ -7,6 +7,9 @@ import { JwtProcessed } from 'src/auth/decorator/jwt-response.decorator';
 import { JwtResponseInterface } from 'src/auth/interfaces/jwt.interface';
 import { VerifyDto } from 'src/auth/dto/verify.dto';
 import { ResendDto } from 'src/auth/dto/resend.dto';
+import { LocalAuthGuard } from 'src/auth/guard/local-auth.guard';
+import { AuthGuard } from '@nestjs/passport';
+import { LoginDto } from 'src/auth/dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -34,7 +37,15 @@ export class AuthController {
     @JwtProcessed() jwtDecoded: JwtResponseInterface,
     @Body() verifyDto: VerifyDto,
   ) {
-    console.log({ jwtDecoded });
     return await this.authService.verifyOtp(jwtDecoded, verifyDto);
+  }
+
+  @Public()
+  @Post('login')
+  async login(
+    @Body() loginDto: LoginDto,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    return await this.authService.login(loginDto, response);
   }
 }

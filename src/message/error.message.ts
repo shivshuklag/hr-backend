@@ -7,4 +7,5 @@ export enum ErrorMessage {
   ACCOUNT_EXISTS = 'Account already exists',
   ERROR = 'error',
   OTP_VERIFICATION_ERROR = 'OTP verfication failed',
+  AUTHENTICATION_ERROR = 'Authentication failed',
 }

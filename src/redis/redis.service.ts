@@ -5,8 +5,11 @@ import { Redis } from 'ioredis';
 export class RedisService {
   constructor(@Inject('REDIS_CLIENT') private readonly redisClient: Redis) {}
 
-  async setCache(key: string, value: string): Promise<string> {
-    return await this.redisClient.set(key, value);
+  async setCache(key: string, value: string, ttl?: number): Promise<void> {
+    await this.redisClient.set(key, value);
+    if (ttl) {
+      await this.redisClient.expire(key, ttl);
+    }
   }
 
   async getCache(key: string): Promise<string | null> {

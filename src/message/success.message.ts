@@ -3,4 +3,5 @@ export enum SuccessMessage {
   OTP_MESSAGE = 'OTP sent successfully',
   REGSITER_MESSAGE = 'Account created and OTP sent successfully',
   OTP_VERIFICATION_MESSAGE = 'OTP verified successfully',
+  LOGIN_MESSAGE = 'Logged in successfully',
 }

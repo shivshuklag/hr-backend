@@ -3,9 +3,9 @@ import { Injectable } from '@nestjs/common';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { configService } from 'src/config/config.service';
 import { Business } from 'src/user/entities/business.entity';
 import { RedisService } from 'src/redis/redis.service';
+import { join } from 'path';
 
 @Injectable()
 export class DatabaseService {
@@ -39,6 +39,7 @@ export class DatabaseService {
     await this.redisService.setCache(
       `business:${businessId}`,
       JSON.stringify(businessConfig),
+      24 * 60 * 60,
     );
 
     return businessConfig;
@@ -59,6 +60,8 @@ export class DatabaseService {
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PASSWORD,
       database: businessConfig.db_name,
+      entities: [join(__dirname, '/../**/*.entity.{js,ts}')],
+      synchronize: false,
     };
 
     const connection = new DataSource(options);

@@ -5,5 +5,8 @@ export class TokenPayloadDto {
   id: string;
 
   @IsString()
+  businessId: string;
+
+  @IsString()
   emailId: string;
 }

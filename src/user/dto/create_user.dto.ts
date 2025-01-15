@@ -2,12 +2,14 @@ import { IsDate, IsEnum, IsOptional, IsString } from 'class-validator';
 import { UserRoleEnum } from 'src/user/enum/user_role.enum';
 import { UserStatusEnum } from 'src/user/enum/user_status.enum';
 
-export class UpdateUserDto {
+export class CreateUserDto {
+  @IsString()
+  id: string;
+
   @IsString()
   email_id: string;
 
   @IsString()
-  @IsOptional()
   password: string;
 
   @IsString()
@@ -20,15 +22,12 @@ export class UpdateUserDto {
 
   @IsString()
   @IsEnum(UserRoleEnum)
-  @IsOptional()
   user_role: string;
 
   @IsString()
   @IsEnum(UserStatusEnum)
-  @IsOptional()
   user_status: string;
 
   @IsDate()
-  @IsOptional()
   email_verified_at: Date;
 }

@@ -1,4 +1,4 @@
-function getCurrentDateTimeIST() {
+export function getCurrentDateTimeIST() {
   // Get the current time in UTC
   const now = new Date();
 
